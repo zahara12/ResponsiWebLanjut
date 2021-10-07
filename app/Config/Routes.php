@@ -52,6 +52,8 @@ $routes->get('/about', function (){
 	echo view('v_about');
 	echo view('layouts/footer');
 });
+$routes->get('/register', 'RegisterController::index');
+$routes->post('/saveRegister', 'RegisterController::saveRegister');
 /*
  * --------------------------------------------------------------------
  * Additional Routing
