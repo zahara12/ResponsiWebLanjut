@@ -44,6 +44,7 @@ $routes->get('/', function (){
 $routes->get('/admin', 'Templating::index');
 $routes->get('/admin/posts', 'AdminPostController::index');
 $routes->get('/admin/posts/create', 'AdminPostController::create');
+$routes->post('/admin/posts/store', 'AdminPostController::store');
 $routes->get('/posts', 'PostController::index');
 $routes->get('/about', function (){
 	$data=[
