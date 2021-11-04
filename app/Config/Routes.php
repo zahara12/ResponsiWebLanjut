@@ -44,6 +44,9 @@ $routes->get('/', function (){
 $routes->get('/admin', 'Templating::index');
 $routes->get('/admin/posts', 'AdminPostController::index');
 $routes->get('/admin/posts/create', 'AdminPostController::create');
+$routes->get('/admin/posts/edit/(:segment)', 'AdminPostController::edit/$1');
+$routes->get('/admin/posts/delete/(:segment)', 'AdminPostController::delete/$1');
+$routes->post('/admin/posts/update/(:segment)', 'AdminPostController::update/$1');
 $routes->post('/admin/posts/store', 'AdminPostController::store');
 $routes->get('/posts', 'PostController::index');
 $routes->get('/about', function (){
@@ -57,6 +60,7 @@ $routes->get('/about', function (){
 });
 $routes->get('/register', 'RegisterController::index');
 $routes->post('/saveRegister', 'RegisterController::saveRegister');
+$routes->get('/biodata/(:alpha)/(:num)', 'Home::fungsiBaru/$1/$2');
 /*
  * --------------------------------------------------------------------
  * Additional Routing

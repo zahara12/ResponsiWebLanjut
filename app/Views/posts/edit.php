@@ -229,48 +229,63 @@
     <!-- /.content-header -->
 
     <div class="container">
-        <a href="/admin/posts/create" class="btn btn-primary"> <i class="fas fa-plus"></i>Tambah Data</a>
-        <div class="card mt-3">
-          <div class="card-header">
-            Daftar Postingan
-          </div>
-          <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-striped text-center">
-                <thead>
-                      <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Judul</th>
-                        <th scope="col">Slug</th>
-                        <th scope="col">Author</th>
-                        <th scope="col">Kategori</th>
-                        <th scope="col">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php 
-                        $count = 0;
-                        foreach ($posts as $i => $post) : 
-                          $count++;
-                      ?>
-                        <tr>
-                          <th><?= $count; ?></th>
-                          <td><?= $post['judul']; ?></td>
-                          <td><?= $post['slug']; ?></td>
-                          <td><?= $post['author']; ?></td>
-                          <td><?= $post['kategori']; ?></td>
-                          <td>
-                            <a href="/admin/posts/edit/<?= $post['slug']; ?>" class="btn btn-warning me-1"><i class="fas fa-edit"> Edit</i></a>
-                            <a href="/admin/posts/delete/<?= $post['slug']; ?>" class="btn btn-danger me-1" onclick="return confirm('Yakin ingin Menghapus?');"><i class="fas fa-trash"> Delete</i></a>
-                          </td>
-                        </tr>
-                      <?php endforeach; ?>
-                    </tbody>
-                </table>
+        <div class="card">
+            <div class="card-header">
+                Form Edit Posts
             </div>
-          </div>
+            <div class="card-body">
+                <form action="/admin/posts/update/<?= $post['post_id']; ?>" method="POST">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="judul">Judul Postingan</label>
+                                <input type="text" class="form-control <?= ($validation->hasError('judul')) ? 'is-invalid' :  ''; ?>"  id="judul" name="judul" value="<?= $post['judul']; ?>">
+                                <?php if ($validation->hasError('judul')) : ?>
+                                  <div class="invalid-feedback">
+                                    <?= $validation->getError('judul'); ?>
+                                  </div>
+                                <?php endif; ?>
+                            </div>
+                            <div class="form-group">
+                                <label for="slug">slug</label>
+                                <input type="text" class="form-control <?= ($validation->hasError('slug')) ? 'is-invalid' :  ''; ?>"  id="slug" name="slug" value="<?= $post['slug']; ?>">
+                                <?php if ($validation->hasError('slug')) : ?>
+                                  <div class="invalid-feedback">
+                                    <?= $validation->getError('slug'); ?>
+                                  </div>
+                                <?php endif; ?>
+                            </div>
+                            <div class="form-group">
+                                <label for="kategori">Kategori Postingan</label>
+                                <input type="text" class="form-control <?= ($validation->hasError('kategori')) ? 'is-invalid' :  ''; ?>"  id="kategori" name="kategori" value="<?= $post['kategori']; ?>">
+                                <?php if ($validation->hasError('kategori')) : ?>
+                                  <div class="invalid-feedback">
+                                    <?= $validation->getError('kategori'); ?>
+                                  </div>
+                                <?php endif; ?>
+                              </div>
+                            <div class="form-group">
+                                <label for="author">Author</label>
+                                <input type="text" class="form-control <?= ($validation->hasError('author')) ? 'is-invalid' :  ''; ?>"  id="author" name="author" value="<?= $post['author']; ?>">
+                                <?php if ($validation->hasError('author')) : ?>
+                                  <div class="invalid-feedback">
+                                    <?= $validation->getError('author'); ?>
+                                  </div>
+                                <?php endif; ?>
+                              </div>
+                        </div>
+                        <div class="col-md-8">
+                            <label for="deskripsi">Deskripsi Postingan</label>
+                            <br>
+                            <textarea name="deskripsi" id="deskripsi"><?= $post['deskripsi']; ?></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Edit
+                    </button>
+                </form>
+            </div>
         </div>
-    
     </div>
 
     <!-- Main content -->
@@ -298,4 +313,10 @@
 </div>
 <!-- ./wrapper -->
 
+<?= $this->endSection();?>
+
+<?= $this->section('myscript');?>
+<script>
+    $('#deskripsi').summernote()
+</script>
 <?= $this->endSection();?>
